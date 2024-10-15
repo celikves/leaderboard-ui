@@ -71,13 +71,7 @@ To set up and run the project locally, follow these steps:
 - **Pagination and Sorting**: ag-Grid provides built-in pagination, with custom page size options and sortable columns for a better user experience.
 - **Dynamic Styling**: Using Tailwind CSS and custom styles, the table rows and hover states provide a visually pleasing and interactive user interface.
 
-## Future Improvements
-
-- **Search and Filter**: Adding search functionality to allow users to filter the leaderboard based on player data.
-- **Animations**: Adding more visual animations to enhance the user experience when data updates.
-- **Backend Integration**: Currently, the data is hardcoded. A future step is to connect the frontend to a backend API to fetch real-time leaderboard data.
 
 ## License
-This project is open-source and free to use for personal and non-commercial purposes.
 
 ---
