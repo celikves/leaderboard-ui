@@ -73,8 +73,9 @@ const Leaderboard = () => {
           }}
           domLayout="autoHeight"
           pagination={true}
-          paginationPageSize={10}
+          paginationPageSize={20}
           paginationAutoPageSize={false}
+          paginationPageSizeOptions={[ 20, 50, 100 ]} 
           localeText={localeText}
         />
       </div>
