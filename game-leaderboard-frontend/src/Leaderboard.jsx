@@ -12,7 +12,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await axios.get('http://localhost:3005/players');
+        const response = await axios.get('http://localhost:3005/api/leaderboard');
         const playersData = response.data.map((player) => ({
           country: player.country,
           username: player.name,
