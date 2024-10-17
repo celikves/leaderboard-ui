@@ -1,20 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-
+import axios from 'axios';
 import './App.css';
-import sampleData from './sampleData'; 
-
-// const sampleData = [
-//   { country: 'USA', username: 'Player1', rank: 1, money: 1000, dailyDiff: 5 },
-//   { country: 'UK', username: 'Player2', rank: 2, money: 900, dailyDiff: -1 },
-//   { country: 'Canada', username: 'Player3', rank: 3, money: 850, dailyDiff: 0 },
-//   // Add more data as needed
-// ];
 
 const Leaderboard = () => {
-  const [rowData] = useState(sampleData);
+  const [rowData, setRowData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlayers = async () => {
+      try {
+        const response = await axios.get('http://localhost:3005/players');
+        const playersData = response.data.map((player) => ({
+          country: player.country,
+          username: player.name,
+          rank: player.rank || 'N/A',
+          money: player.totalEarnings || 0,
+          dailyDiff: player.dailyDiff || 0 
+        }));       
+        setRowData(playersData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching players:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchPlayers();
+  }, []);
 
   const columnDefs = [
     { headerName: 'Country', field: 'country', flex: 1, minWidth: 70 },
@@ -39,7 +54,6 @@ const Leaderboard = () => {
   ];
 
   const localeText = {
-    //page: 'Custom Page',
     of: '-',
     to: '/',
     more: 'more',
@@ -64,20 +78,26 @@ const Leaderboard = () => {
         className="ag-theme-alpine-dark"
         style={{ width: '100%', minWidth: '350px' }}
       >
-        <AgGridReact
-          rowData={rowData}
-          columnDefs={columnDefs}
-          defaultColDef={{
-            resizable: true,
-            sortable: true,
-          }}
-          domLayout="autoHeight"
-          pagination={true}
-          paginationPageSize={20}
-          paginationAutoPageSize={false}
-          paginationPageSizeOptions={[ 20, 50, 100 ]} 
-          localeText={localeText}
-        />
+        {loading ? (
+          <div className="flex items-center justify-center h-screen text-white text-2xl">
+            Loading...
+          </div>
+        ) : (
+          <AgGridReact
+            rowData={rowData}
+            columnDefs={columnDefs}
+            defaultColDef={{
+              resizable: true,
+              sortable: true,
+            }}
+            domLayout="autoHeight"
+            pagination={true}
+            paginationPageSize={20}
+            paginationAutoPageSize={false}
+            paginationPageSizeOptions={[20, 50, 100]} 
+            localeText={localeText}
+          />
+        )}
       </div>
     </div>
   );
