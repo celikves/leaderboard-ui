@@ -13,6 +13,7 @@ const Explanation = () => {
       alert("Failed to send request.");
     }
   };
+
   return (
     <div className="bg-gray text-white p-4 rounded-md my-4 text-sm m-4">
       <h2 className="text-lg font-semibold mb-2 text-main">
@@ -47,7 +48,7 @@ const Explanation = () => {
               "http://localhost:3005/api/leaderboard/calculateYesterdayRanks"
             )
           }
-          className="schedule-button"
+          className="bg-[#f7780d] text-white px-4 py-2 rounded font-bold mr-2"
         >
           Calculate Yesterday Ranks
         </button>
@@ -57,7 +58,7 @@ const Explanation = () => {
               "http://localhost:3005/api/leaderboard/weeklyPrizeDistribution"
             )
           }
-          className="schedule-button"
+          className="bg-[#f7780d] text-white px-4 py-2 rounded font-bold"
         >
           Weekly Prize Distribution
         </button>
